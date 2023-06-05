@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using AASS.AtlasTexture;
 
 namespace AASS
@@ -30,11 +29,10 @@ namespace AASS
                 {
                     spriteBatch.Draw(_atlas_textures[atlasTexture2D.AtlasID],
                                     new Rectangle((int)position.X,(int)position.Y,
-                                                    (int)atlasTexture2D.Size.X,(int)atlasTexture2D.Size.Y),
-                                    new Rectangle((int)atlasTexture2D.Position.X,(int)atlasTexture2D.Position.Y,
-                                                (int)atlasTexture2D.Size.X,(int)atlasTexture2D.Size.Y),
+                                                    (int)atlasTexture2D.Rect.Width,(int)atlasTexture2D.Rect.Height),
+                                    atlasTexture2D.Rect,
                                     Color.White,0.0f,
-                                    new Vector2(atlasTexture2D.Size.X/2,atlasTexture2D.Size.Y/2),
+                                    new Vector2(atlasTexture2D.Rect.Width/2,atlasTexture2D.Rect.Height/2),
                                     SpriteEffects.None,0);
                 }
                 else
