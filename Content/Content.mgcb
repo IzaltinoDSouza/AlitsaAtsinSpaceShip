@@ -25,3 +25,38 @@
 /processorParam:TextureFormat=Color
 /build:AtlasTextures/GameAtlas.png;AtlasTextures/GameAtlas
 
+#begin Fonts/DefaultNormal12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/DefaultNormal12.spritefont
+
+#begin Fonts/DefaultNormal14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/DefaultNormal14.spritefont
+
+#begin Fonts/DefaultNormal16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/DefaultNormal16.spritefont
+
+#begin Fonts/DefaultNormal18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/DefaultNormal18.spritefont
+
+#begin Fonts/DefaultNormal20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/DefaultNormal20.spritefont
+
