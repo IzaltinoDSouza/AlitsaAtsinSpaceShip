@@ -23,22 +23,24 @@ namespace AASS
             }
             static public void Draw(SpriteBatch spriteBatch,
                                     AtlasTexture2D atlasTexture2D,
-                                    Vector2 position)
+                                    Vector2 position,
+                                    float rotate = 0.0f,
+                                    SpriteEffects effects = SpriteEffects.None)
             {    
                 if(atlasTexture2D.AtlasID < _atlas_textures.Count)
                 {
                     spriteBatch.Draw(_atlas_textures[atlasTexture2D.AtlasID],
                                     new Rectangle((int)position.X,(int)position.Y,
-                                                    (int)atlasTexture2D.Rect.Width,(int)atlasTexture2D.Rect.Height),
+                                                  (int)atlasTexture2D.Rect.Width,(int)atlasTexture2D.Rect.Height),
                                     atlasTexture2D.Rect,
-                                    Color.White,0.0f,
+                                    Color.White,rotate,
                                     new Vector2(atlasTexture2D.Rect.Width/2,atlasTexture2D.Rect.Height/2),
-                                    SpriteEffects.None,0);
+                                    effects,0);
                 }
                 else
                 {
-                    //draw a pink rectangle to show something is wrong
-                    Console.WriteLine("TODO : Atlas ID is invalid");
+                    //TODO : draw a pink rectangle to show something is wrong
+                    Console.WriteLine("Atlas ID is invalid");
                     Environment.Exit(0);
                 }
             }
