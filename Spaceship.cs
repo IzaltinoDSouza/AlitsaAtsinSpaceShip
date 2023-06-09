@@ -7,6 +7,8 @@ namespace AASS
     class SpaceShip : GameObject
     {
         private Rectangle _atlasSpaceship;
+        float _moveDirection;
+        float _speed;
         public SpaceShip(Rectangle atlasSpaceship)
         {
             _atlasSpaceship = atlasSpaceship;
@@ -21,11 +23,23 @@ namespace AASS
         }
         public override void Initialize()
         {
-            //TODO
+            _moveDirection = 0;
+            _speed = 100;
         }
         public override void Update(GameTime gameTime)
         {
-            //TODO
+            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if(_moveDirection <= -1)
+            {
+                Y -= _speed * elapsedTime;
+                _moveDirection = 0;
+            }
+            else if(_moveDirection >= 1)
+            {
+                Y +=  _speed * elapsedTime;
+                _moveDirection = 0;
+            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -33,6 +47,13 @@ namespace AASS
                                     new AtlasTexture2D(0,_atlasSpaceship),
                                                             Position);
         }
-
+        public void MoveUp()
+        {
+            _moveDirection = -1;
+        }
+        public void MoveDown()
+        {
+            _moveDirection = +1;
+        }
     }
 }
