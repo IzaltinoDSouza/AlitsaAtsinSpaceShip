@@ -12,8 +12,8 @@ public class AlistaAtsinSpaceShip : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    
-    private SpaceShip _alitsa;
+
+    private Universe _universe;
 
     public AlistaAtsinSpaceShip()
     {
@@ -26,9 +26,10 @@ public class AlistaAtsinSpaceShip : Game
     {        
         AtlasTexture2DManager.Initialize();
 
-        _alitsa = new SpaceShip(new Rectangle(120,604,104,84),
-                                new Vector2(104/2,84/2));
-        _alitsa.Initialize();
+        _universe = new Universe();
+
+        _universe.Initialize();
+
         base.Initialize();
     }
 
@@ -37,6 +38,7 @@ public class AlistaAtsinSpaceShip : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         AtlasTexture2DManager.AddTexture2D(Content.Load<Texture2D>("AtlasTextures/GameAtlas"));
+        _universe.LoadContent(Content);
     }
 
     protected override void Update(GameTime gameTime)
@@ -44,15 +46,7 @@ public class AlistaAtsinSpaceShip : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        if(Keyboard.GetState().IsKeyDown(Keys.W))
-        {
-            _alitsa.MoveUp();
-        }
-        if(Keyboard.GetState().IsKeyDown(Keys.S))
-        {
-            _alitsa.MoveDown();
-        }
-        _alitsa.Update(gameTime);
+        _universe.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -62,7 +56,7 @@ public class AlistaAtsinSpaceShip : Game
 
         _spriteBatch.Begin();
 
-        _alitsa.Draw(_spriteBatch);
+        _universe.Draw(_spriteBatch);
         
 	    _spriteBatch.End();
         base.Draw(gameTime);
