@@ -36,7 +36,7 @@ class SpaceShip : GameObject
                                    new AtlasTexture2D(0,_atlasSpaceship),
                                                         Position);
     }
-
+    
 }
 public class AlistaAtsinSpaceShip : Game
 {
