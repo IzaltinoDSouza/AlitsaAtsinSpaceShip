@@ -3,15 +3,48 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using AASS;
 using AASS.AtlasTexture;
+using Microsoft.Xna.Framework.Content;
 
+class SpaceShip : GameObject
+{
+    private Rectangle _atlasSpaceship;
+    public SpaceShip(Rectangle atlasSpaceship)
+    {
+        _atlasSpaceship = atlasSpaceship;
+        Position = Vector2.Zero;
+        IsActive = true;
+    }
+    public SpaceShip(Rectangle atlasSpaceship,Vector2 position)
+    {
+        _atlasSpaceship = atlasSpaceship;
+        Position = position;
+        IsActive = true;
+    }
+    public override void Initialize()
+    {
+        //TODO
+    }
+    public override void Update(GameTime gameTime)
+    {
+        //TODO
+    }
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        AtlasTexture2DManager.Draw(spriteBatch,
+                                   new AtlasTexture2D(0,_atlasSpaceship),
+                                                        Position);
+    }
+
+}
 public class AlistaAtsinSpaceShip : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-
-    private Vector2 position;
     
+    private SpaceShip _alitsa;
+
     public AlistaAtsinSpaceShip()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -20,13 +53,12 @@ public class AlistaAtsinSpaceShip : Game
     }
 
     protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
-
-        position = new Vector2(104/2,84/2);
-        
+    {        
         AtlasTexture2DManager.Initialize();
 
+        _alitsa = new SpaceShip(new Rectangle(120,604,104,84),
+                                new Vector2(104/2,84/2));
+        _alitsa.Initialize();
         base.Initialize();
     }
 
@@ -35,7 +67,6 @@ public class AlistaAtsinSpaceShip : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         AtlasTexture2DManager.AddTexture2D(Content.Load<Texture2D>("AtlasTextures/GameAtlas"));
-        // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
@@ -43,7 +74,7 @@ public class AlistaAtsinSpaceShip : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+        _alitsa.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -51,13 +82,10 @@ public class AlistaAtsinSpaceShip : Game
     {
         GraphicsDevice.Clear(Color.Black);
 
-        // TODO: Add your drawing code here
-
         _spriteBatch.Begin();
-        AtlasTexture2DManager.Draw(_spriteBatch,
-                                   new AtlasTexture2D(0,new Vector2(120,604),
-                                                        new Vector2(104,84)),
-                                                        position);
+
+        _alitsa.Draw(_spriteBatch);
+        
 	    _spriteBatch.End();
         base.Draw(gameTime);
     }

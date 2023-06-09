@@ -31,10 +31,10 @@ namespace AASS
                 {
                     spriteBatch.Draw(_atlas_textures[atlasTexture2D.AtlasID],
                                     new Rectangle((int)position.X,(int)position.Y,
-                                                  (int)atlasTexture2D.Rect.Width,(int)atlasTexture2D.Rect.Height),
-                                    atlasTexture2D.Rect,
+                                                  (int)atlasTexture2D.AtlasPosition.Width,(int)atlasTexture2D.AtlasPosition.Height),
+                                    atlasTexture2D.AtlasPosition,
                                     Color.White,rotate,
-                                    new Vector2(atlasTexture2D.Rect.Width/2,atlasTexture2D.Rect.Height/2),
+                                    new Vector2(atlasTexture2D.AtlasPosition.Width/2,atlasTexture2D.AtlasPosition.Height/2),
                                     effects,0);
                 }
                 else
