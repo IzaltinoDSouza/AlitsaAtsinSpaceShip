@@ -43,6 +43,16 @@ namespace AASS
                 Y +=  _speed * elapsedTime;
                 _moveDirection = 0;
             }
+
+            
+            if(Y < _atlasSpaceship.Height)
+            {
+                Y = _atlasSpaceship.Height;
+            }
+            if(Y > Global.ScreenHeight - _atlasSpaceship.Height)
+            {
+                Y = Global.ScreenHeight - _atlasSpaceship.Height;
+            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

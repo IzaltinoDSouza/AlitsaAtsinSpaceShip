@@ -25,7 +25,7 @@ namespace AASS
             
             //Alitsa
             _alitsa = new SpaceShip(new Rectangle(120,604,104,84),
-                                   new Vector2(104/2,84/2));
+                                    new Vector2(128,84/2));
 
             _input.Bind(Keys.W,new MoveUpCommand(_alitsa));
             _input.Bind(Keys.S,new MoveDownCommand(_alitsa));
@@ -34,7 +34,7 @@ namespace AASS
             
             //Atsin
             _atsin = new SpaceShip(new Rectangle(518,493,82,84),
-                                   new Vector2(104/2,360));
+                                   new Vector2(128,Global.ScreenHeight-(84/2)));
             
             _input.Bind(Keys.Up,new MoveUpCommand(_atsin));
             _input.Bind(Keys.Down,new MoveDownCommand(_atsin));
