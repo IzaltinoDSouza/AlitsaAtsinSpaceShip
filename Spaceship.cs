@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AASS
 {
-    class SpaceShip : GameObject
+    class SpaceShip : GameObject,IMovementVertical
     {
         private Rectangle _atlasSpaceship;
         float _moveDirection;
