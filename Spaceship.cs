@@ -9,6 +9,8 @@ namespace AASS
         private Rectangle _atlasSpaceship;
         float _moveDirection;
         float _speed;
+
+        float _angle;
         public SpaceShip(Rectangle atlasSpaceship)
         {
             _atlasSpaceship = atlasSpaceship;
@@ -25,6 +27,7 @@ namespace AASS
         {
             _moveDirection = 0;
             _speed = 100;
+            _angle = MathHelper.ToRadians(90);
         }
         public override void Update(GameTime gameTime)
         {
@@ -45,7 +48,8 @@ namespace AASS
         {
             AtlasTexture.AtlasTexture2DManager.Draw(spriteBatch,
                                     new AtlasTexture2D(0,_atlasSpaceship),
-                                                            Position);
+                                                            Position,_angle,
+                                                            SpriteEffects.FlipVertically);
         }
         public void MoveUp()
         {
