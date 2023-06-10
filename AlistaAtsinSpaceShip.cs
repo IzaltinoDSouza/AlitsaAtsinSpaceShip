@@ -23,7 +23,10 @@ public class AlistaAtsinSpaceShip : Game
     }
 
     protected override void Initialize()
-    {        
+    {
+        Global.SetScreenSize((float)_graphics.PreferredBackBufferWidth,
+                             (float)_graphics.PreferredBackBufferHeight);
+
         AtlasTexture2DManager.Initialize();
 
         _universe = new Universe();
