@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -10,6 +11,7 @@ namespace AASS
     {
         private List<GameObject> _gameObjects;
         private SpaceShip _alitsa;
+        private InputHandler _input;
 
         public void Initialize()
         {
@@ -17,6 +19,10 @@ namespace AASS
 
            _alitsa = new SpaceShip(new Rectangle(120,604,104,84),
                                    new Vector2(104/2,84/2));
+
+            _input = new InputHandler();
+            _input.Bind(Keys.W,new MoveUpCommand(_alitsa));
+            _input.Bind(Keys.S,new MoveDownCommand(_alitsa));
 
             _gameObjects.Add(_alitsa);
 
@@ -31,14 +37,7 @@ namespace AASS
         }
         public void Update(GameTime gameTime)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                _alitsa.MoveUp();
-            }
-            if(Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                _alitsa.MoveDown();
-            }
+            _input.HandleInput();
 
             foreach(var gameObject in _gameObjects)
             {
