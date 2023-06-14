@@ -12,38 +12,51 @@ namespace AASS
         private Texture2D _backgroundTexture;
         private Vector2 _backgroundPosition;
         private float _backgroundScrollSpeed;
-        private List<GameObject> _gameObjects;
+        private Dictionary<string,List<GameObject>> _gameObjects;
         private SpaceShip _alitsa;
         private SpaceShip _atsin;
         private InputHandler _input;
+        private CollisionHandler _collision;
 
         public void Initialize()
         {
             _input = new InputHandler();
+            _collision = new CollisionHandler();
             
-            _gameObjects = new List<GameObject>();
+            _gameObjects = new Dictionary<string,List<GameObject>>();
             
             //Alitsa
-            _alitsa = new SpaceShip(new Rectangle(120,604,104,84),
-                                    new Vector2(128,84/2));
+            _alitsa = new SpaceShip("Alitsa",new Rectangle(120,604,104,84),
+                                    		 new Vector2(128,84/2));
+            
+            var _alitsaChildrens = new List<GameObject>();
+            _alitsaChildrens.Add(_alitsa);
 
             _input.Bind(Keys.W,new MoveUpCommand(_alitsa));
             _input.Bind(Keys.S,new MoveDownCommand(_alitsa));
-            
-            _gameObjects.Add(_alitsa);
+
+            _gameObjects.Add(_alitsa.Name,_alitsaChildrens);
             
             //Atsin
-            _atsin = new SpaceShip(new Rectangle(518,493,82,84),
-                                   new Vector2(128,Global.ScreenHeight-(84/2)));
+            _atsin = new SpaceShip("Atsin",new Rectangle(518,493,82,84),
+                                   		   new Vector2(128,Global.ScreenHeight-(84/2)));
             
+             var _atsinChildrens = new List<GameObject>();
+            _atsinChildrens.Add(_atsin);
+
             _input.Bind(Keys.Up,new MoveUpCommand(_atsin));
             _input.Bind(Keys.Down,new MoveDownCommand(_atsin));
             
-            _gameObjects.Add(_atsin);
+            _gameObjects.Add(_atsin.Name,_atsinChildrens);
             
-            foreach(var gameObject in _gameObjects)
+            _collision.WhenCollide("Alitsa","Atsin",new IHealthAction("Atsin",-1));
+            
+            foreach(var gameObjects in _gameObjects)
             {
-                gameObject.Initialize();
+            	foreach(var gameObject in gameObjects.Value)
+            	{
+                	gameObject.Initialize();
+                }
             }
 
             _backgroundPosition = Vector2.Zero;
@@ -63,10 +76,15 @@ namespace AASS
             if(_backgroundPosition.X <= -_backgroundTexture.Width)
                 _backgroundPosition.X = 0.0f;
 
-            foreach(var gameObject in _gameObjects)
+            foreach(var gameObjects in _gameObjects)
             {
-                gameObject.Update(gameTime);
+            	foreach(var gameObject in gameObjects.Value)
+            	{
+            		if(gameObject.IsActive) gameObject.Update(gameTime);
+            	}
             }
+            
+            _collision.HandleCollision(_gameObjects);
         }
         public void Draw(SpriteBatch sprite)
         {
@@ -79,9 +97,12 @@ namespace AASS
                 }
             }
             //Draw objects
-            foreach(var gameObject in _gameObjects)
+            foreach(var gameObjects in _gameObjects)
             {
-                gameObject.Draw(sprite);
+            	foreach(var gameObject in gameObjects.Value)
+            	{
+                	if(gameObject.IsActive) gameObject.Draw(sprite);
+                }
             }
         }
     }
