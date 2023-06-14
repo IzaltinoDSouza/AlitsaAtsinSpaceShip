@@ -6,6 +6,8 @@ namespace AASS
 {
     public abstract class GameObject
     {
+        public string Name{get;set;}
+
         public Vector2 Position{get;set;}
 
         public float X { get {return Position.X;}
