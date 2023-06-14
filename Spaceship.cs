@@ -38,11 +38,17 @@ namespace AASS
             _speed = 100;
             _angle = MathHelper.ToRadians(90);
             
-            Shape = new Rectangle((int)X,(int)Y,_atlasSpaceship.Width,_atlasSpaceship.Height);
+            Shape = new Rectangle((int)X-_atlasSpaceship.Width/2,
+            					  (int)Y-_atlasSpaceship.Height/2,
+            					  _atlasSpaceship.Width,
+            					  _atlasSpaceship.Height);
         }
         public override void Update(GameTime gameTime)
         {
-            Shape = new Rectangle((int)X,(int)Y,_atlasSpaceship.Width,_atlasSpaceship.Height);
+            Shape = new Rectangle((int)X-_atlasSpaceship.Width/2,
+            					  (int)Y-_atlasSpaceship.Height/2,
+            					  _atlasSpaceship.Width,
+            					  _atlasSpaceship.Height);
             
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

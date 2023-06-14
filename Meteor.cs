@@ -13,24 +13,35 @@ namespace AASS
         public int MaxHealth {get;set;}
         public int CurrentHealth {get;set;}
 
-        public Meteor(Rectangle atlasMeteor,
+        public Meteor(string name,Rectangle atlasMeteor,
                       Vector2 position,
                       float speed)
         {
+            Name = name;
             _atlasMeteor = atlasMeteor;
             Position = position;
             _speed = speed;
+            Initialize();
         }
         public override void Initialize()
         {
-            Shape = new Rectangle((int)X,(int)Y,_atlasMeteor.Width,_atlasMeteor.Height);
+            Shape = new Rectangle((int)X-_atlasMeteor.Width/2,
+            					  (int)Y-_atlasMeteor.Height/2,
+            					  _atlasMeteor.Width,
+            					  _atlasMeteor.Height);
+
             CurrentHealth = 100;
             MaxHealth = 100;
+            IsActive = true;
         }
 
         public override void Update(GameTime gameTime)
         {
-            Shape = new Rectangle((int)X,(int)Y,_atlasMeteor.Width,_atlasMeteor.Height);
+            Shape = new Rectangle((int)X-_atlasMeteor.Width/2,
+            					  (int)Y-_atlasMeteor.Height/2,
+            					  _atlasMeteor.Width,
+            					  _atlasMeteor.Height);
+
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             X -= _speed * elapsedTime;
         }
@@ -39,7 +50,7 @@ namespace AASS
             AtlasTexture.AtlasTexture2DManager.Draw(spriteBatch,
                                     new AtlasTexture2D(0,_atlasMeteor),
                                                        Position);
-        
+            
         }
         public void TakeDamage(int amount)
         {
