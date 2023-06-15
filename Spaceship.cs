@@ -16,6 +16,10 @@ namespace AASS
         public int CurrentHealth {get;set;}
         public Rectangle Shape { get; set; }
         public bool Shoot { get; set; }
+
+        private float _nextShootTime;
+        private float _nextShootTimeDelay;
+
         public SpaceShip(string name,Rectangle atlasSpaceship)
         {
             Name = name;
@@ -43,6 +47,8 @@ namespace AASS
             					  (int)Y-_atlasSpaceship.Height/2,
             					  _atlasSpaceship.Width,
             					  _atlasSpaceship.Height);
+            _nextShootTime = 0.0f;
+            _nextShootTimeDelay = 0.25f;
         }
         public override void Update(GameTime gameTime)
         {
@@ -52,6 +58,13 @@ namespace AASS
             					  _atlasSpaceship.Height);
             
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if(Shoot)
+            {
+                _nextShootTime -= elapsedTime;
+                if(_nextShootTime < 0.0f)
+                    _nextShootTime = 0.0f;
+            }
 
             if(_moveDirection <= -1)
             {
@@ -107,8 +120,9 @@ namespace AASS
         }
         public Projectile CreateProjectile()
         {
-            if(Shoot)
+            if(Shoot && _nextShootTime <= 0.0f)
             {
+                _nextShootTime = _nextShootTimeDelay;
                 Shoot = false;
                 return new Projectile("Projectile"+Name,
                                       new Rectangle(856,421,9,54),
