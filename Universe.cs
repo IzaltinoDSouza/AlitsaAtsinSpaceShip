@@ -128,7 +128,7 @@ namespace AASS
                                                                      new Rectangle(399,814,16,15);
                 var meteorRandomPosition =
                     new Vector2(_random.Next(((int)Global.ScreenWidth-20)/2,(int)Global.ScreenWidth-20),
-                                _random.Next(20,(int)Global.ScreenHeight-20));
+                                _random.Next(128,(int)Global.ScreenHeight-128));
                  _gameObjects["Meteor"].Add(new Meteor("Meteor",meteorVariation,meteorRandomPosition,75f));
                 _createMeteorCountdown = 0.8f;
             }
