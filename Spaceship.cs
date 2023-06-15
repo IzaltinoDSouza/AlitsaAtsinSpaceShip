@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AASS
 {
-    class SpaceShip : GameObject,IMovementVertical,IHealth,IBoxCollision
+    class SpaceShip : GameObject,IMovementVertical,IShoot,IHealth,IBoxCollision,ICreateProjectile
     {
         private Rectangle _atlasSpaceship;
         float _moveDirection;
@@ -15,6 +15,7 @@ namespace AASS
         public int MaxHealth {get;set;}
         public int CurrentHealth {get;set;}
         public Rectangle Shape { get; set; }
+        public bool Shoot { get; set; }
         public SpaceShip(string name,Rectangle atlasSpaceship)
         {
             Name = name;
@@ -103,6 +104,20 @@ namespace AASS
         	CurrentHealth += amount;
         	if(CurrentHealth > MaxHealth)
         		CurrentHealth = MaxHealth;
+        }
+        public Projectile CreateProjectile()
+        {
+            if(Shoot)
+            {
+                Shoot = false;
+                return new Projectile("Projectile"+Name,
+                                      new Rectangle(856,421,9,54),
+                                      new Vector2(X +_atlasSpaceship.Width/2,Y),
+                                      250f);
+            }else
+            {
+                return null;
+            }
         }
     }
 }

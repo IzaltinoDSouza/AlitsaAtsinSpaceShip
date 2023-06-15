@@ -21,10 +21,13 @@ namespace AASS
 
         private Random _random;
         private float _createMeteorCountdown;
+        Projectiles _projectiles;
         public void Initialize()
         {
             _random = new Random();
             _createMeteorCountdown = 10f;
+
+            _projectiles = new Projectiles();
 
             _input = new InputHandler();
             _collision = new CollisionHandler();
@@ -41,6 +44,7 @@ namespace AASS
 
             _input.Bind(Keys.W,new MoveUpCommand(_alitsa));
             _input.Bind(Keys.S,new MoveDownCommand(_alitsa));
+            _input.Bind(Keys.LeftShift,new ShootCommand(_alitsa));
 
             _gameObjects.Add(_alitsa.Name,_alitsaChildrens);
 
@@ -53,6 +57,7 @@ namespace AASS
 
             _input.Bind(Keys.Up,new MoveUpCommand(_atsin));
             _input.Bind(Keys.Down,new MoveDownCommand(_atsin));
+            _input.Bind(Keys.RightShift,new ShootCommand(_atsin));
 
             _gameObjects.Add(_atsin.Name,_atsinChildrens);
 
@@ -69,6 +74,17 @@ namespace AASS
             _collision.WhenCollide("Meteor",_atsin.Name,MeteorAndAtsinCollideActions);
             
             _gameObjects.Add("Meteor",new List<GameObject>());
+
+            var alitsaProjectileAndMeteorCollideActions = new List<ICollisionAction>();
+            alitsaProjectileAndMeteorCollideActions.Add(new IHealthAction("Projectile"+_alitsa.Name,-100));
+            alitsaProjectileAndMeteorCollideActions.Add(new IHealthAction("Meteor",-5));
+            _collision.WhenCollide("Projectile"+_alitsa.Name,"Meteor",alitsaProjectileAndMeteorCollideActions);
+
+            var atsinProjectileAndMeteorCollideActions = new List<ICollisionAction>();
+            atsinProjectileAndMeteorCollideActions.Add(new IHealthAction("Projectile"+_atsin.Name,-100));
+            atsinProjectileAndMeteorCollideActions.Add(new IHealthAction("Meteor",-5));
+            atsinProjectileAndMeteorCollideActions.Add(new IHealthAction(_atsin,+1));
+            _collision.WhenCollide("Projectile"+_atsin.Name,"Meteor",atsinProjectileAndMeteorCollideActions);
             
             foreach(var gameObjects in _gameObjects)
             {
@@ -88,6 +104,7 @@ namespace AASS
         public void Update(GameTime gameTime)
         {
             _input.HandleInput();
+            _projectiles.Update(_gameObjects);
 
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
