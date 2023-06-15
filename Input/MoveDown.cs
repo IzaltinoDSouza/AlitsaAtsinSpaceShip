@@ -13,9 +13,5 @@ namespace AASS
             if(_gameObject is IMovementVertical movement)
                 movement.MoveDown();
         }
-        private void MoveDown()
-        {
-            Execute();
-        }
     }
 }
