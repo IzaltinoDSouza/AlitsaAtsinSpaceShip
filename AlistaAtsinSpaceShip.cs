@@ -39,7 +39,7 @@ public class AlistaAtsinSpaceShip : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+        Global.SetScreenSize(Content.Load<Texture2D>("TextureDebug"));
         AtlasTexture2DManager.AddTexture2D(Content.Load<Texture2D>("AtlasTextures/GameAtlas"));
         _universe.LoadContent(Content);
     }
