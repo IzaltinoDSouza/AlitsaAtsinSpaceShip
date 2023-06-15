@@ -1,17 +1,17 @@
 namespace AASS
 {
-	class IHealthAction : ICollisionAction
+	class HealthAction : ICollisionAction
 	{
 		private GameObject _gameObject;
 		private string     _name;
 		private int 	   _healthAmount;
-		public IHealthAction(GameObject gameObject,int healthAmount)
+		public HealthAction(GameObject gameObject,int healthAmount)
 		{
 			_gameObject = gameObject;
 			_name = null;
 			_healthAmount = healthAmount;
 		}
-		public IHealthAction(string name,int healthAmount)
+		public HealthAction(string name,int healthAmount)
 		{
 			_name = name;
 			_gameObject = null;

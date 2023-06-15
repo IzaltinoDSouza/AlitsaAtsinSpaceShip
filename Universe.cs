@@ -64,26 +64,26 @@ namespace AASS
             //_collision.WhenCollide("Alitsa","Atsin",new IHealthAction("Atsin",-1));
 
             var MeteorAndAlitsaCollideActions = new List<ICollisionAction>();
-            MeteorAndAlitsaCollideActions.Add(new IHealthAction(_alitsa.Name,-1));
-            MeteorAndAlitsaCollideActions.Add(new IHealthAction("Meteor",-100));
+            MeteorAndAlitsaCollideActions.Add(new HealthAction(_alitsa.Name,-1));
+            MeteorAndAlitsaCollideActions.Add(new HealthAction("Meteor",-100));
             _collision.WhenCollide("Meteor",_alitsa.Name,MeteorAndAlitsaCollideActions);
 
             var MeteorAndAtsinCollideActions = new List<ICollisionAction>();
-            MeteorAndAtsinCollideActions.Add(new IHealthAction(_atsin.Name,-1));
-            MeteorAndAtsinCollideActions.Add(new IHealthAction("Meteor",-100));
+            MeteorAndAtsinCollideActions.Add(new HealthAction(_atsin.Name,-1));
+            MeteorAndAtsinCollideActions.Add(new HealthAction("Meteor",-100));
             _collision.WhenCollide("Meteor",_atsin.Name,MeteorAndAtsinCollideActions);
             
             _gameObjects.Add("Meteor",new List<GameObject>());
 
             var alitsaProjectileAndMeteorCollideActions = new List<ICollisionAction>();
-            alitsaProjectileAndMeteorCollideActions.Add(new IHealthAction("Projectile"+_alitsa.Name,-100));
-            alitsaProjectileAndMeteorCollideActions.Add(new IHealthAction("Meteor",-5));
+            alitsaProjectileAndMeteorCollideActions.Add(new HealthAction("Projectile"+_alitsa.Name,-100));
+            alitsaProjectileAndMeteorCollideActions.Add(new HealthAction("Meteor",-5));
             _collision.WhenCollide("Projectile"+_alitsa.Name,"Meteor",alitsaProjectileAndMeteorCollideActions);
 
             var atsinProjectileAndMeteorCollideActions = new List<ICollisionAction>();
-            atsinProjectileAndMeteorCollideActions.Add(new IHealthAction("Projectile"+_atsin.Name,-100));
-            atsinProjectileAndMeteorCollideActions.Add(new IHealthAction("Meteor",-5));
-            atsinProjectileAndMeteorCollideActions.Add(new IHealthAction(_atsin,+1));
+            atsinProjectileAndMeteorCollideActions.Add(new HealthAction("Projectile"+_atsin.Name,-100));
+            atsinProjectileAndMeteorCollideActions.Add(new HealthAction("Meteor",-5));
+            atsinProjectileAndMeteorCollideActions.Add(new HealthAction(_atsin,+1));
             _collision.WhenCollide("Projectile"+_atsin.Name,"Meteor",atsinProjectileAndMeteorCollideActions);
             
             foreach(var gameObjects in _gameObjects)
