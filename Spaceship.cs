@@ -4,9 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AASS
 {
-    class SpaceShip : GameObject,IMovementVertical,IShoot,IHealth,IBoxCollision,ICreateProjectile
+    class SpaceShip : GameObject,IMovementVertical,IShoot,IHealth,IBoxCollision,ICreateProjectile,IShield
     {
         private Rectangle _atlasSpaceship;
+        private Rectangle _atlasShield;
         float _moveDirection;
         float _speed;
 
@@ -20,6 +21,11 @@ namespace AASS
         private float _nextShootTime;
         private float _nextShootTimeDelay;
 
+        public bool ShieldEnable{get;set;}
+        public bool ShieldActivate{get;set;}
+        public float ShieldDuration{get;set;}
+        public int ShieldMaxCount{get;set;}
+        public int ShieldCount{get;set;}
         public SpaceShip(string name,Rectangle atlasSpaceship)
         {
             Name = name;
@@ -49,14 +55,17 @@ namespace AASS
             					  _atlasSpaceship.Height);
             _nextShootTime = 0.0f;
             _nextShootTimeDelay = 0.25f;
+
+            ShieldEnable = true;//false;
+            ShieldActivate = false;
+            ShieldDuration =  20.0f;
+            ShieldMaxCount = 3;
+            ShieldCount = 0;
+
+            _atlasShield = new Rectangle(0,412,133,108);
         }
         public override void Update(GameTime gameTime)
-        {
-            Shape = new Rectangle((int)X-_atlasSpaceship.Width/2,
-            					  (int)Y-_atlasSpaceship.Height/2,
-            					  _atlasSpaceship.Width,
-            					  _atlasSpaceship.Height);
-            
+        {            
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if(Shoot)
@@ -64,6 +73,27 @@ namespace AASS
                 _nextShootTime -= elapsedTime;
                 if(_nextShootTime < 0.0f)
                     _nextShootTime = 0.0f;
+            }
+            if(ShieldEnable && ShieldActivate)
+            {
+                ShieldDuration -= elapsedTime;
+                if(ShieldDuration <= 0.0f)
+                {
+                    ShieldActivate = false;
+                    ShieldCount -= 1;
+                    if(ShieldCount <= 0)
+                        ShieldEnable = false;
+                }
+                Shape = new Rectangle((int)X-_atlasShield.Width/2,
+                                     (int)Y-_atlasShield.Height/2,
+                                     _atlasShield.Width,
+                                     _atlasShield.Height);
+            }else
+            {
+                Shape = new Rectangle((int)X-_atlasSpaceship.Width/2,
+                                     (int)Y-_atlasSpaceship.Height/2,
+                                     _atlasSpaceship.Width,
+                                     _atlasSpaceship.Height);
             }
 
             if(_moveDirection <= -1)
@@ -93,6 +123,13 @@ namespace AASS
                                     new AtlasTexture2D(0,_atlasSpaceship),
                                                             Position,_angle,
                                                             SpriteEffects.FlipVertically);
+            if(ShieldEnable && ShieldActivate)
+            {
+                AtlasTexture.AtlasTexture2DManager.Draw(spriteBatch,
+                                                        new AtlasTexture2D(0,_atlasShield),
+                                                        new Vector2(X+5,Y),_angle,
+                                                        SpriteEffects.None);
+            }
         }
         public void MoveUp()
         {
@@ -104,6 +141,8 @@ namespace AASS
         }
         public void TakeDamage(int amount)
         {
+            if(ShieldEnable && ShieldActivate) return;
+
         	CurrentHealth -= amount;
         	if(CurrentHealth < 0)
             {

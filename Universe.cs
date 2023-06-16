@@ -25,7 +25,7 @@ namespace AASS
         public void Initialize()
         {
             _random = new Random();
-            _createMeteorCountdown = 10f;
+            _createMeteorCountdown = 2f;
 
             _projectiles = new Projectiles();
 
@@ -45,6 +45,7 @@ namespace AASS
             _input.Bind(Keys.W,new MoveUpCommand(_alitsa));
             _input.Bind(Keys.S,new MoveDownCommand(_alitsa));
             _input.Bind(Keys.LeftShift,new ShootCommand(_alitsa));
+            _input.Bind(Keys.LeftControl,new ShieldActivateCommand(_alitsa));
 
             _gameObjects.Add(_alitsa.Name,_alitsaChildrens);
 
@@ -58,6 +59,7 @@ namespace AASS
             _input.Bind(Keys.Up,new MoveUpCommand(_atsin));
             _input.Bind(Keys.Down,new MoveDownCommand(_atsin));
             _input.Bind(Keys.RightShift,new ShootCommand(_atsin));
+            _input.Bind(Keys.RightControl,new ShieldActivateCommand(_atsin));
 
             _gameObjects.Add(_atsin.Name,_atsinChildrens);
 
