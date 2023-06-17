@@ -56,9 +56,9 @@ namespace AASS
             _nextShootTime = 0.0f;
             _nextShootTimeDelay = 0.25f;
 
-            ShieldEnable = true;//false;
+            ShieldEnable = false;
             ShieldActivate = false;
-            ShieldDuration =  20.0f;
+            ShieldDuration = 20.0f;
             ShieldMaxCount = 3;
             ShieldCount = 0;
 
@@ -79,10 +79,18 @@ namespace AASS
                 ShieldDuration -= elapsedTime;
                 if(ShieldDuration <= 0.0f)
                 {
-                    ShieldActivate = false;
-                    ShieldCount -= 1;
+                    if(ShieldCount > 0)
+                    {
+                        ShieldActivate = false;
+                        ShieldCount -= 1;
+                        ShieldDuration = 20.0f;
+                    }
                     if(ShieldCount <= 0)
+                    {
                         ShieldEnable = false;
+                        ShieldCount = 0;
+                        ShieldDuration = 0.0f;
+                    }
                 }
                 Shape = new Rectangle((int)X-_atlasShield.Width/2,
                                      (int)Y-_atlasShield.Height/2,
@@ -149,7 +157,7 @@ namespace AASS
         		CurrentHealth = 0;
                 IsActive = false;
             }
-            System.Console.WriteLine($"TakeDamage : {amount} | Health : {CurrentHealth} ");
+            //System.Console.WriteLine($"TakeDamage : {amount} | Health : {CurrentHealth} ");
         }
         public void Heal(int amount)
         {

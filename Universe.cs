@@ -21,11 +21,13 @@ namespace AASS
 
         private Random _random;
         private float _createMeteorCountdown;
+        private float _createPowerUpCountdown;
         Projectiles _projectiles;
         public void Initialize()
         {
             _random = new Random();
             _createMeteorCountdown = 2f;
+            _createPowerUpCountdown = 16f;
 
             _projectiles = new Projectiles();
 
@@ -80,12 +82,23 @@ namespace AASS
             alitsaProjectileAndMeteorCollideActions.Add(new HealthAction("Meteor",-50));
             _collision.WhenCollide("Projectile"+_alitsa.Name,"Meteor",alitsaProjectileAndMeteorCollideActions);
 
+            var alitsaCollideShieldPowerUP = new List<ICollisionAction>();
+            alitsaCollideShieldPowerUP.Add(new ShieldEnableAction(_alitsa));
+            alitsaCollideShieldPowerUP.Add(new DestroyAction("ShieldPowerUp"));
+            _collision.WhenCollide("ShieldPowerUp",_alitsa.Name,alitsaCollideShieldPowerUP);
+
+
             var atsinProjectileAndMeteorCollideActions = new List<ICollisionAction>();
             atsinProjectileAndMeteorCollideActions.Add(new DestroyAction("Projectile"+_atsin.Name));
             atsinProjectileAndMeteorCollideActions.Add(new HealthAction("Meteor",-50));
             atsinProjectileAndMeteorCollideActions.Add(new HealthAction(_atsin,+1));
             _collision.WhenCollide("Projectile"+_atsin.Name,"Meteor",atsinProjectileAndMeteorCollideActions);
             
+            var atsinCollideShieldPowerUP = new List<ICollisionAction>();
+            atsinCollideShieldPowerUP.Add(new ShieldEnableAction(_atsin));
+            atsinCollideShieldPowerUP.Add(new DestroyAction("ShieldPowerUp"));
+            _collision.WhenCollide("ShieldPowerUp",_atsin.Name,atsinCollideShieldPowerUP);
+
             foreach(var gameObjects in _gameObjects)
             {
             	foreach(var gameObject in gameObjects.Value)
@@ -128,9 +141,28 @@ namespace AASS
                                                                      new Rectangle(399,814,16,15);
                 var meteorRandomPosition =
                     new Vector2(_random.Next(((int)Global.ScreenWidth-20)/2,(int)Global.ScreenWidth-20),
-                                _random.Next(128,(int)Global.ScreenHeight-128));
+                                _random.Next(105,(int)Global.ScreenHeight-105));
                  _gameObjects["Meteor"].Add(new Meteor("Meteor",meteorVariation,meteorRandomPosition,75f));
                 _createMeteorCountdown = 0.8f;
+            }
+
+            _createPowerUpCountdown -= elapsedTime;
+            if(_createPowerUpCountdown <= 0.0)
+            {
+                var powerUpRandomPosition =
+                    new Vector2(_random.Next(((int)Global.ScreenWidth-32)/2,(int)Global.ScreenWidth-32),
+                                _random.Next(105,(int)Global.ScreenHeight-105));
+                
+                if(_gameObjects.ContainsKey("ShieldPowerUp"))
+                {
+                    _gameObjects["ShieldPowerUp"][0].Position = powerUpRandomPosition;
+                    _gameObjects["ShieldPowerUp"][0].IsActive = true;
+                }else
+                {
+                    _gameObjects.Add("ShieldPowerUp",new List<GameObject>());
+                    _gameObjects["ShieldPowerUp"].Add(new ShieldPowerUp(powerUpRandomPosition,100));
+                }
+                _createPowerUpCountdown = 16f;
             }
         }
 
