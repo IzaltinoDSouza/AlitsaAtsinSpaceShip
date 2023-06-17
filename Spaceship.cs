@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AASS
 {
-    class SpaceShip : GameObject,IMovementVertical,IShoot,IHealth,IBoxCollision,ICreateProjectile,IShield
+    class SpaceShip : GameObject,IMovementVertical,IShoot,IHealth,IBoxCollision,ICreateProjectile,IShield,IScore
     {
         private Rectangle _atlasSpaceship;
         private Rectangle _atlasShield;
@@ -26,6 +26,8 @@ namespace AASS
         public float ShieldDuration{get;set;}
         public int ShieldMaxCount{get;set;}
         public int ShieldCount{get;set;}
+        
+        public int Score{get;set;}
         public SpaceShip(string name,Rectangle atlasSpaceship)
         {
             Name = name;
