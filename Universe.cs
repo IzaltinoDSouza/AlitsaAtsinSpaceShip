@@ -132,6 +132,10 @@ namespace AASS
             	foreach(var gameObject in gameObjects.Value)
             	{
             		if(gameObject.IsActive) gameObject.Update(gameTime);
+                    if(gameObject is SpaceShip spaceship)
+                    {
+                        Console.WriteLine($"{spaceship.Name} : Health : {spaceship.CurrentHealth} | Score : {spaceship.Score} | Shield Total : {spaceship.ShieldCount} | Shield TimeLeft : {spaceship.ShieldDuration}");
+                    }
             	}
             }
             
