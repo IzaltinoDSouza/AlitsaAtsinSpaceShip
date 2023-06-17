@@ -80,6 +80,7 @@ namespace AASS
             var alitsaProjectileAndMeteorCollideActions = new List<ICollisionAction>();
             alitsaProjectileAndMeteorCollideActions.Add(new DestroyAction("Projectile"+_alitsa.Name));
             alitsaProjectileAndMeteorCollideActions.Add(new HealthAction("Meteor",-50));
+            alitsaProjectileAndMeteorCollideActions.Add(new ScoreAction(_alitsa,+1));
             _collision.WhenCollide("Projectile"+_alitsa.Name,"Meteor",alitsaProjectileAndMeteorCollideActions);
 
             var alitsaCollideShieldPowerUP = new List<ICollisionAction>();
@@ -92,6 +93,7 @@ namespace AASS
             atsinProjectileAndMeteorCollideActions.Add(new DestroyAction("Projectile"+_atsin.Name));
             atsinProjectileAndMeteorCollideActions.Add(new HealthAction("Meteor",-50));
             atsinProjectileAndMeteorCollideActions.Add(new HealthAction(_atsin,+1));
+            atsinProjectileAndMeteorCollideActions.Add(new ScoreAction(_atsin,+1));
             _collision.WhenCollide("Projectile"+_atsin.Name,"Meteor",atsinProjectileAndMeteorCollideActions);
             
             var atsinCollideShieldPowerUP = new List<ICollisionAction>();
