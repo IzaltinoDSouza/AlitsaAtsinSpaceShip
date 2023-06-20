@@ -40,6 +40,7 @@ public class AlistaAtsinSpaceShip : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         Global.SetScreenSize(Content.Load<Texture2D>("TextureDebug"));
+        Global.SetDefaultFont(Content.Load<SpriteFont>("Fonts/DefaultNormal14"));
         AtlasTexture2DManager.AddTexture2D(Content.Load<Texture2D>("AtlasTextures/GameAtlas"));
         _universe.LoadContent(Content);
     }

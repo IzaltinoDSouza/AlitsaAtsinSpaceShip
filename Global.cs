@@ -7,6 +7,7 @@ namespace AASS
         static public float ScreenWidth{get;private set;}
         static public float ScreenHeight{get;private set;}
         static public Texture2D TextureDebug {get;private set;}
+        static public SpriteFont DefaultFont {get;private set;}
 
         static public void SetScreenSize(float width,float height)
         {
@@ -16,6 +17,10 @@ namespace AASS
         static public void SetScreenSize(Texture2D textureDebug)
         {
             TextureDebug = textureDebug;
+        }
+        static public void SetDefaultFont(SpriteFont font)
+        {
+            DefaultFont = font;
         }
     }
 }
