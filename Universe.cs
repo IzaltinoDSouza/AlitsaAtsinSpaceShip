@@ -41,7 +41,7 @@ namespace AASS
             
             //Alitsa
             _alitsa = new SpaceShip("Alitsa",new Rectangle(120,604,104,84),
-                                    		 new Vector2(128,84/2));
+                                             new Vector2(128,84+50));
 
             var _alitsaChildrens = new List<GameObject>();
             _alitsaChildrens.Add(_alitsa);
@@ -55,7 +55,7 @@ namespace AASS
 
             //Atsin
             _atsin = new SpaceShip("Atsin",new Rectangle(518,493,82,84),
-                                   		   new Vector2(128,Global.ScreenHeight-(84/2)));
+                                           new Vector2(128,Global.ScreenHeight-84));
 
              var _atsinChildrens = new List<GameObject>();
             _atsinChildrens.Add(_atsin);

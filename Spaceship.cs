@@ -118,9 +118,9 @@ namespace AASS
             }
             
             
-            if(Y < _atlasSpaceship.Height)
+            if(Y < (_atlasSpaceship.Height+50))
             {
-                Y = _atlasSpaceship.Height;
+                Y = (_atlasSpaceship.Height+50);
             }
             if(Y > Global.ScreenHeight - _atlasSpaceship.Height)
             {
