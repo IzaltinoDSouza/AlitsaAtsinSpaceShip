@@ -23,6 +23,8 @@ namespace AASS
         private float _createMeteorCountdown;
         private float _createPowerUpCountdown;
         Projectiles _projectiles;
+
+        GameHUD _gameHUD;
         public void Initialize()
         {
             _random = new Random();
@@ -111,6 +113,8 @@ namespace AASS
 
             _backgroundPosition = Vector2.Zero;
             _backgroundScrollSpeed = 50.0f;
+
+            _gameHUD = new GameHUD(_alitsa,_atsin);
         }
         public void LoadContent(ContentManager content)
         {
@@ -194,6 +198,7 @@ namespace AASS
                     }
                 }
             }
+            _gameHUD.Draw(spriteBatch);
         }
     }
 }
