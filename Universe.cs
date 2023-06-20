@@ -151,7 +151,7 @@ namespace AASS
                                                                      new Rectangle(399,814,16,15);
                 var meteorRandomPosition =
                     new Vector2(_random.Next(((int)Global.ScreenWidth-20)/2,(int)Global.ScreenWidth-20),
-                                _random.Next(105,(int)Global.ScreenHeight-105));
+                                _random.Next(135,(int)Global.ScreenHeight-120));
                  _gameObjects["Meteor"].Add(new Meteor("Meteor",meteorVariation,meteorRandomPosition,75f));
                 _createMeteorCountdown = 0.8f;
             }
@@ -161,7 +161,7 @@ namespace AASS
             {
                 var powerUpRandomPosition =
                     new Vector2(_random.Next(((int)Global.ScreenWidth-32)/2,(int)Global.ScreenWidth-32),
-                                _random.Next(105,(int)Global.ScreenHeight-105));
+                                _random.Next(135,(int)Global.ScreenHeight-120));
                 
                 if(_gameObjects.ContainsKey("ShieldPowerUp"))
                 {
