@@ -20,15 +20,20 @@ namespace AASS
         private CollisionDebug   _collisionDebug;
 
         private Random _random;
-        private float _createMeteorCountdown;
+        MeteorWave _meteorWave;
         private float _createPowerUpCountdown;
         Projectiles _projectiles;
 
         GameHUD _gameHUD;
         public void Initialize()
         {
+            var meteorVariations = new List<Rectangle>();
+            meteorVariations.Add(new Rectangle(346,814,18,18));
+            meteorVariations.Add(new Rectangle(399,814,16,15));
+            _meteorWave = new MeteorWave("Meteor",meteorVariations,2,6,70f,5f);
+
             _random = new Random();
-            _createMeteorCountdown = 2f;
+
             _createPowerUpCountdown = 16f;
 
             _projectiles = new Projectiles();
@@ -142,19 +147,10 @@ namespace AASS
                     }
             	}
             }
-            
+
             _collision.HandleCollision(_gameObjects);
-            _createMeteorCountdown -= elapsedTime;
-            if(_createMeteorCountdown <= 0.0)
-            {
-                Rectangle meteorVariation = _random.Next(0,1) == 0 ? new Rectangle(346,814,18,18) :
-                                                                     new Rectangle(399,814,16,15);
-                var meteorRandomPosition =
-                    new Vector2(_random.Next(((int)Global.ScreenWidth-20)/2,(int)Global.ScreenWidth-20),
-                                _random.Next(135,(int)Global.ScreenHeight-120));
-                 _gameObjects["Meteor"].Add(new Meteor("Meteor",meteorVariation,meteorRandomPosition,75f));
-                _createMeteorCountdown = 0.8f;
-            }
+
+            _meteorWave.Update(gameTime,_gameObjects);
 
             _createPowerUpCountdown -= elapsedTime;
             if(_createPowerUpCountdown <= 0.0)
