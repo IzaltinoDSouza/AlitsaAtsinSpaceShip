@@ -8,6 +8,7 @@ namespace AASS
     class Menu
     {
         private string _text;
+        private Color _textColor;
         private Vector2 _position;
         private Rectangle _buttonAtlas;
         private Vector2 _buttonAtlasCenter;
@@ -25,10 +26,12 @@ namespace AASS
         {
             _isMouseHover = false;
             _isClick = false;
+            _textColor = Color.Black;
             MouseState mState = Mouse.GetState();
             if(IsCursorInsideBounds(mState.Position))
             {
                 _isMouseHover = true;
+                _textColor = Color.DarkRed;
             }
             if(ButtonState.Pressed == mState.LeftButton && _isMouseHover)
             {
@@ -42,7 +45,7 @@ namespace AASS
                                                     _position+_buttonAtlasCenter);
             var fontSizeCenter = Global.DefaultFont.MeasureString(_text)/2;
             var textPosition  = _position + (_buttonAtlasCenter-fontSizeCenter);
-            spriteBatch.DrawString(Global.DefaultFont,_text,textPosition,Color.Red);
+            spriteBatch.DrawString(Global.DefaultFont,_text,textPosition,_textColor);
         }
         public void SetPosition(Vector2 position)
         {
