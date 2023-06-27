@@ -33,7 +33,7 @@ namespace AASS
                                     new AtlasTexture2D(0,_atlasShield),
                                                             position);
             }
-
+            if(_spaceship.Score <= 0) return;
             //Score
             var scoreStr = _spaceship.Score.ToString();
             var fontSize = Global.DefaultFont.MeasureString(scoreStr);
