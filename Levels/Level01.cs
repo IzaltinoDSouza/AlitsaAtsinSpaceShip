@@ -62,23 +62,24 @@ namespace AASS
         }
         private void CollisionActions(GameObject player)
         {
-            //TinyMeteor And Alitsa collide
-            var MeteorAndAlitsa = new List<ICollisionAction>();
-            MeteorAndAlitsa.Add(new HealthAction(player.Name,-1));
-            MeteorAndAlitsa.Add(new DestroyAction("TinyMeteor"));
-            _collision.WhenCollide("TinyMeteor",player.Name,MeteorAndAlitsa);
+            //TinyMeteor and Player collide
+            var meteorAndPlayer = new List<ICollisionAction>();
+            meteorAndPlayer.Add(new HealthAction(player.Name,-1));
+            meteorAndPlayer.Add(new DestroyAction("TinyMeteor"));
+            _collision.WhenCollide("TinyMeteor",player.Name,meteorAndPlayer);
 
-            //Alista projectile and TinyMeteor collide
-            var AlitsaProjectileAndMeteor = new List<ICollisionAction>();
-            AlitsaProjectileAndMeteor.Add(new DestroyAction(player.Name+"Projectile"));
-            AlitsaProjectileAndMeteor.Add(new DestroyAction("TinyMeteor"));
-            AlitsaProjectileAndMeteor.Add(new ScoreAction(player,+1));
-            _collision.WhenCollide(player.Name+"Projectile","TinyMeteor",AlitsaProjectileAndMeteor);
-
-            var ShieldPowerUpAndPlayer = new List<ICollisionAction>();
-            ShieldPowerUpAndPlayer.Add(new ShieldEnableAction(player.Name));
-            ShieldPowerUpAndPlayer.Add(new DestroyAction("ShieldPowerUp"));
-            _collision.WhenCollide("ShieldPowerUp",player.Name,ShieldPowerUpAndPlayer);
+            //Player projectile and TinyMeteor collide
+            var playerProjectileAndMeteor = new List<ICollisionAction>();
+            playerProjectileAndMeteor.Add(new DestroyAction(player.Name+"Projectile"));
+            playerProjectileAndMeteor.Add(new DestroyAction("TinyMeteor"));
+            playerProjectileAndMeteor.Add(new ScoreAction(player,+1));
+            _collision.WhenCollide(player.Name+"Projectile","TinyMeteor",playerProjectileAndMeteor);
+            
+            //ShieldPowerUp and Player
+            var shieldPowerUpAndPlayer = new List<ICollisionAction>();
+            shieldPowerUpAndPlayer.Add(new ShieldEnableAction(player.Name));
+            shieldPowerUpAndPlayer.Add(new DestroyAction("ShieldPowerUp"));
+            _collision.WhenCollide("ShieldPowerUp",player.Name,shieldPowerUpAndPlayer);
         }
     }
 }
