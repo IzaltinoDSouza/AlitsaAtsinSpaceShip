@@ -173,7 +173,7 @@ namespace AASS
             {
                 _nextShootTime = _nextShootTimeDelay;
                 Shoot = false;
-                return new Projectile("Projectile"+Name,
+                return new Projectile(Name+"Projectile",
                                       new Rectangle(856,421,9,54),
                                       new Vector2(X +_atlasSpaceship.Width/2,Y),
                                       250f);
