@@ -29,7 +29,7 @@ namespace AASS
             CollisionActions(alitsa);
             CollisionActions(atsin);
 
-            _universe = new Universe(_background,_collision,meteorWaves,new ShieldPowerUpWave(25f,_levelCountdownTime/2));
+            _universe = new Universe(_background,_collision,meteorWaves,new ShieldPowerUpWave(60f,_levelCountdownTime/2));
 
             _universe.AddGameObject(alitsa.Name,alitsa);
             _universe.AddGameObject(atsin.Name,atsin);
