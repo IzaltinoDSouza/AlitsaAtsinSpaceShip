@@ -7,12 +7,13 @@ namespace AASS
 {
     class Level01 : Level
     {
+        private float _levelCountdownTime;
         private BackgroundScrollable _background;
         private CollisionHandler _collision;
         private Universe _universe;
-        private float _levelCountdownTime;
         public override void Initialize(int level,SpaceShip alitsa,SpaceShip atsin)
         {
+            _levelCountdownTime = 2*60;
             _background = new BackgroundScrollable(Vector2.Zero,50.0f);
             
             var tinyMeteorVariations = new List<Rectangle>();
@@ -28,13 +29,12 @@ namespace AASS
             CollisionActions(alitsa);
             CollisionActions(atsin);
 
-            _universe = new Universe(_background,_collision,meteorWaves);
+            _universe = new Universe(_background,_collision,meteorWaves,new ShieldPowerUpWave(25f,_levelCountdownTime/2));
 
             _universe.AddGameObject(alitsa.Name,alitsa);
             _universe.AddGameObject(atsin.Name,atsin);
             _universe.AddGameObject("TinyMeteor",new List<GameObject>());
-
-            _levelCountdownTime = 2*60;
+            _universe.AddGameObject("ShieldPowerUp",new List<GameObject>());
         }
 
         public override void LoadContent(ContentManager content)
@@ -74,6 +74,11 @@ namespace AASS
             AlitsaProjectileAndMeteor.Add(new DestroyAction("TinyMeteor"));
             AlitsaProjectileAndMeteor.Add(new ScoreAction(player,+1));
             _collision.WhenCollide(player.Name+"Projectile","TinyMeteor",AlitsaProjectileAndMeteor);
+
+            var ShieldPowerUpAndPlayer = new List<ICollisionAction>();
+            ShieldPowerUpAndPlayer.Add(new ShieldEnableAction(player.Name));
+            ShieldPowerUpAndPlayer.Add(new DestroyAction("ShieldPowerUp"));
+            _collision.WhenCollide("ShieldPowerUp",player.Name,ShieldPowerUpAndPlayer);
         }
     }
 }

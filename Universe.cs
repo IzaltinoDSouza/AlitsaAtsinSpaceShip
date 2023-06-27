@@ -10,14 +10,16 @@ namespace AASS
         private BackgroundScrollable _background;
         private CollisionHandler _collison;
         private List<MeteorWave> _meteorWaves;
+        private ShieldPowerUpWave _shieldPowerUpWave;
         private Dictionary<string,List<GameObject>> _gameObjects;
         private Projectiles _projectiles;
 
-        public Universe(BackgroundScrollable background,CollisionHandler collision,List<MeteorWave> meteorWaves)
+        public Universe(BackgroundScrollable background,CollisionHandler collision,List<MeteorWave> meteorWaves,ShieldPowerUpWave shieldPowerUpWave)
         {
             _background = background;
             _collison = collision;
             _meteorWaves = meteorWaves;
+            _shieldPowerUpWave = shieldPowerUpWave;
             _gameObjects = new Dictionary<string,List<GameObject>>();
             _projectiles = new Projectiles();
         }
@@ -51,6 +53,7 @@ namespace AASS
             {
                meteorWave.Update(gameTime,_gameObjects);
             }
+            _shieldPowerUpWave.Update(gameTime,_gameObjects);
             _projectiles.Update(_gameObjects);
             foreach(var gameObjects in _gameObjects)
             {
