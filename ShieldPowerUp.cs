@@ -8,11 +8,10 @@ namespace AASS
     {
         private Rectangle _atlasShieldPowerUp;
         public Rectangle Shape{get;set;}
-        private Vector2 _position;
         private float _speed;
         public ShieldPowerUp(Vector2 position,float speed)
         {
-            _position = position;
+            Position = position;
             _speed = speed;
            
             Initialize();
