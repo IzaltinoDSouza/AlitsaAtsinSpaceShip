@@ -21,7 +21,7 @@ namespace AASS
             _background = new BackgroundScrollable(Vector2.Zero,0.0f);
             _menus = new List<Menu>();
             _menus.Add(new Menu("New Game",Vector2.Zero));
-            _menus.Add(new Menu("Load Game",Vector2.Zero));
+            //_menus.Add(new Menu("Load Game",Vector2.Zero));
             _menus.Add(new Menu("Quit",Vector2.Zero));
 
             var menuPosition = new Vector2((Global.ScreenWidth - _menus[0].GetWidth())/2,
