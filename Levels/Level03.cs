@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AASS
 {
-    class Level01 : Level
+    class Level03 : Level
     {
         private float _levelCountdownTime;
         private Color _levelCountdownColor;
@@ -22,21 +22,29 @@ namespace AASS
             var tinyMeteorVariations = new List<Rectangle>();
             tinyMeteorVariations.Add(new Rectangle(346,814,18,18));
             tinyMeteorVariations.Add(new Rectangle(399,814,16,15));
-            var tinyMeteorWave = new MeteorWave("TinyMeteor",tinyMeteorVariations,2,6,70f,5.0f);
+            var tinyMeteorWave = new MeteorWave("TinyMeteor",tinyMeteorVariations,1,3,70f,18.0f);
+
+            //Small Meteor
+            var smallMeteorVariations = new List<Rectangle>();
+            smallMeteorVariations.Add(new Rectangle(406,234,28,28));
+            smallMeteorVariations.Add(new Rectangle(778,587,29,26));
+            var smallMeteorWave = new MeteorWave("SmallMeteor",smallMeteorVariations,1,2,85f,8.0f);
 
             var meteorWaves = new List<MeteorWave>();
             meteorWaves.Add(tinyMeteorWave);
+            meteorWaves.Add(smallMeteorWave);
 
             _collision = new CollisionHandler();
 
             CollisionActions(alitsa);
             CollisionActions(atsin);
 
-            _universe = new Universe(_background,_collision,meteorWaves,new ShieldPowerUpWave(60f,_levelCountdownTime/2));
+            _universe = new Universe(_background,_collision,meteorWaves,new ShieldPowerUpWave(60f,_levelCountdownTime/3));
 
             _universe.AddGameObject(alitsa.Name,alitsa);
             _universe.AddGameObject(atsin.Name,atsin);
             _universe.AddGameObject("TinyMeteor",new List<GameObject>());
+            _universe.AddGameObject("SmallMeteor",new List<GameObject>());
             _universe.AddGameObject("ShieldPowerUp",new List<GameObject>());
         }
 
@@ -86,6 +94,22 @@ namespace AASS
             }));
             _collision.WhenCollide("TinyMeteor",player.Name,tinyMeteorAndPlayer);
 
+            //SmallMeteor and Player collide
+            var SmallMeteorAndPlayer = new List<ICollisionAction>();
+            SmallMeteorAndPlayer.Add(new HealthAction(player.Name,-5));
+            SmallMeteorAndPlayer.Add(new DestroyAction("SmallMeteor"));
+            SmallMeteorAndPlayer.Add(new UserDefinedAction((GameObject obj1,GameObject obj2) => {
+                if(obj2 is SpaceShip spaceship)
+                {
+                    if(!spaceship.ShieldActivate)
+                    {
+                        Global.SFXSounds["MeteorCollide"].Stop();
+                        Global.SFXSounds["MeteorCollide"].Play();
+                    }
+                }
+            }));
+            _collision.WhenCollide("SmallMeteor",player.Name,SmallMeteorAndPlayer);
+
             //Player projectile and TinyMeteor collide
             var playerProjectileAndTinyMeteor = new List<ICollisionAction>();
             playerProjectileAndTinyMeteor.Add(new DestroyAction(player.Name+"Projectile"));
@@ -93,6 +117,14 @@ namespace AASS
             playerProjectileAndTinyMeteor.Add(new ScoreAction(player,+1));
             playerProjectileAndTinyMeteor.Add(new PlaySFXSoundAction("ProjectileCollide"));
             _collision.WhenCollide(player.Name+"Projectile","TinyMeteor",playerProjectileAndTinyMeteor);
+
+            //Player projectile and SmallMeteor collide
+            var playerProjectileAndSmallMeteor = new List<ICollisionAction>();
+            playerProjectileAndSmallMeteor.Add(new DestroyAction(player.Name+"Projectile"));
+            playerProjectileAndSmallMeteor.Add(new HealthAction("SmallMeteor",-45));
+            playerProjectileAndSmallMeteor.Add(new ScoreAction(player,+3));
+            playerProjectileAndSmallMeteor.Add(new PlaySFXSoundAction("ProjectileCollide"));
+            _collision.WhenCollide(player.Name+"Projectile","SmallMeteor",playerProjectileAndSmallMeteor);
             
             //ShieldPowerUp and Player
             var shieldPowerUpAndPlayer = new List<ICollisionAction>();
