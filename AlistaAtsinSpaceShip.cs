@@ -81,6 +81,7 @@ public class AlistaAtsinSpaceShip : Game
         Mouse.SetCursor(MouseCursor.FromTexture2D(Content.Load<Texture2D>("Cursor"),0,0));
         _gameMenu.LoadContent(Content);
         _levelManager.LoadContent(Content);
+        _background.SetBackground(Content.Load<Texture2D>("Background/DarkPurple"));
     }
 
     protected override void Update(GameTime gameTime)
