@@ -173,6 +173,8 @@ namespace AASS
             {
                 _nextShootTime = _nextShootTimeDelay;
                 Shoot = false;
+                Global.SFXSounds["ProjectileShoot"].Stop();
+                Global.SFXSounds["ProjectileShoot"].Play();
                 return new Projectile(Name+"Projectile",
                                       new Rectangle(856,421,9,54),
                                       new Vector2(X +_atlasSpaceship.Width/2,Y),

@@ -16,10 +16,13 @@ namespace AASS
     {
         private BackgroundScrollable _background;
         private List<Menu> _menus;
+        private int _prevMouseHover;
         public GameMenu()
         {
             _background = new BackgroundScrollable(Vector2.Zero,0.0f);
             _menus = new List<Menu>();
+            _prevMouseHover = -1;
+
             _menus.Add(new Menu("New Game",Vector2.Zero));
             //_menus.Add(new Menu("Load Game",Vector2.Zero));
             _menus.Add(new Menu("Quit",Vector2.Zero));
@@ -38,6 +41,7 @@ namespace AASS
         }
         public GameMenuState Update(GameTime gametime)
         {
+            bool isMouseHover = false;
             for(int i = 0;i < _menus.Count;++i)
             {
                 _menus[i].Update(gametime);
@@ -45,6 +49,21 @@ namespace AASS
                 {
                     return (GameMenuState)i;
                 }
+                if(_menus[i].IsMouseHover())
+                {
+                    if(_prevMouseHover != i)
+                    {
+                        Global.SFXSounds["MenuMouseHover"].Stop();
+                        Global.SFXSounds["MenuMouseHover"].Play();
+                        _prevMouseHover = i;
+                    }
+                    isMouseHover = true;
+                }
+            }
+            //This reset it, because there was not a mouse hover.
+            if(!isMouseHover)
+            {
+                _prevMouseHover = -1;
             }
             return GameMenuState.GameMenu;
         }

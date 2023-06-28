@@ -12,9 +12,10 @@ namespace AASS
         {
             if(_gameObject is IShield s)
             {
-                if(s.ShieldEnable)
+                if(s.ShieldEnable && !s.ShieldActivate)
                 {
                     s.ShieldActivate = true;
+                    Global.SFXSounds["ShieldActivate"].Play();
                 }
             }
         }
