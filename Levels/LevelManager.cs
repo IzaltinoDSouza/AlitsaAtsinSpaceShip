@@ -25,6 +25,7 @@ namespace AASS
         {
             _levels = new List<Level>();
             _levels.Add(new Level01());
+            _levels.Add(new Level02());
             _currentLevel = level-1;
             _state = LevelManagerState.Loading;
 
@@ -67,7 +68,8 @@ namespace AASS
                     _currentLevel += 1;
                     if(_currentLevel < _levels.Count)
                     {
-                        _state = LevelManagerState.InitializeCurrentLevel;
+                        _state = LevelManagerState.Loading;
+                        _loadingTime = 3.0f;
                     }else
                     {
                         return false;
