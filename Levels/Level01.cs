@@ -73,6 +73,16 @@ namespace AASS
             var meteorAndPlayer = new List<ICollisionAction>();
             meteorAndPlayer.Add(new HealthAction(player.Name,-1));
             meteorAndPlayer.Add(new DestroyAction("TinyMeteor"));
+            meteorAndPlayer.Add(new UserDefinedAction((GameObject obj1,GameObject obj2) => {
+                if(obj2 is SpaceShip spaceship)
+                {
+                    if(!spaceship.ShieldActivate)
+                    {
+                        Global.SFXSounds["MeteorCollide"].Stop();
+                        Global.SFXSounds["MeteorCollide"].Play();
+                    }
+                }
+            }));
             _collision.WhenCollide("TinyMeteor",player.Name,meteorAndPlayer);
 
             //Player projectile and TinyMeteor collide
@@ -80,6 +90,7 @@ namespace AASS
             playerProjectileAndMeteor.Add(new DestroyAction(player.Name+"Projectile"));
             playerProjectileAndMeteor.Add(new DestroyAction("TinyMeteor"));
             playerProjectileAndMeteor.Add(new ScoreAction(player,+1));
+            playerProjectileAndMeteor.Add(new PlaySFXSoundAction("ProjectileCollide"));
             _collision.WhenCollide(player.Name+"Projectile","TinyMeteor",playerProjectileAndMeteor);
             
             //ShieldPowerUp and Player
