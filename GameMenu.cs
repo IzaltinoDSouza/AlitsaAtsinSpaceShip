@@ -14,10 +14,11 @@ namespace AASS
     }
     class GameMenu
     {
-        private Texture2D _blackground;
+        private BackgroundScrollable _background;
         private List<Menu> _menus;
         public GameMenu()
         {
+            _background = new BackgroundScrollable(Vector2.Zero,0.0f);
             _menus = new List<Menu>();
             _menus.Add(new Menu("New Game",Vector2.Zero));
             _menus.Add(new Menu("Load Game",Vector2.Zero));
@@ -33,7 +34,7 @@ namespace AASS
         }
         public void LoadContent(ContentManager content)
         {
-            _blackground = content.Load<Texture2D>("Background");
+            _background.SetBackground(content.Load<Texture2D>("Background/DarkPurple"));
         }
         public GameMenuState Update(GameTime gametime)
         {
@@ -49,13 +50,7 @@ namespace AASS
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            for(int y = 0;y < Global.ScreenHeight;y += _blackground.Height)
-            {
-                for(int x = 0;x < Global.ScreenWidth;x += _blackground.Width)
-                {
-                    spriteBatch.Draw(_blackground,new Vector2(x,y),null,Color.White);
-                }
-            }
+            _background.Draw(spriteBatch);
             for(int i = 0;i < _menus.Count;++i)
             {
                 _menus[i].Draw(spriteBatch);
