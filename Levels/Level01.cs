@@ -39,7 +39,7 @@ namespace AASS
 
         public override void LoadContent(ContentManager content)
         {
-            _background.SetBackground(content.Load<Texture2D>("Background"));
+            _background.SetBackground(content.Load<Texture2D>("Background/DarkPurple"));
         }
 
         public override bool Update(GameTime gameTime)

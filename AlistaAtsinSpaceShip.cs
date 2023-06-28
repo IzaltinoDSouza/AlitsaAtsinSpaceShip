@@ -31,6 +31,8 @@ public class AlistaAtsinSpaceShip : Game
     private SpaceShip _atsin;
 
     private float _countdown;
+
+    private BackgroundScrollable _background;
     public AlistaAtsinSpaceShip()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -65,6 +67,8 @@ public class AlistaAtsinSpaceShip : Game
         _gameHUD = new GameHUD(_alitsa,_atsin);
 
         _countdown = 10.0f;
+
+        _background = new BackgroundScrollable(Vector2.Zero,0.0f);
         base.Initialize();
     }
 
@@ -146,6 +150,7 @@ public class AlistaAtsinSpaceShip : Game
                 _gameHUD.Draw(_spriteBatch);
             break;
             case GameState.EndOfAllLevels:
+                _background.Draw(_spriteBatch);
                 string textThanks = "Thank You for play";
                 var textThanksSize = Global.DefaultFont.MeasureString(textThanks);
                 _spriteBatch.DrawString(Global.DefaultFont,textThanks,
@@ -154,6 +159,8 @@ public class AlistaAtsinSpaceShip : Game
                                         Color.White);
             break;
             case GameState.GameOver:
+                _levelManager.Draw(_spriteBatch);
+                _gameHUD.Draw(_spriteBatch);
                 string textGameOver = "Both player is dead";
                 var textGameOverSize = Global.DefaultFont.MeasureString(textGameOver);
                 _spriteBatch.DrawString(Global.DefaultFont,textGameOver,
