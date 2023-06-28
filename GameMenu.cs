@@ -9,8 +9,8 @@ namespace AASS
     {
         GameMenu = -1,
         NewGame = 0,
-        LoadGame = 1,
-        Quit = 2
+        //LoadGame = 1,
+        Quit = 1
     }
     class GameMenu
     {
