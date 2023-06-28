@@ -90,6 +90,12 @@ public class AlistaAtsinSpaceShip : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         Global.SetScreenSize(Content.Load<Texture2D>("TextureDebug"));
         Global.SetDefaultFont(Content.Load<SpriteFont>("Fonts/DefaultNormal14"));
+        Global.AddSFXSound("ProjectileShoot",Content.Load<SoundEffect>("SFXSounds/ProjectileShoot"));
+        Global.AddSFXSound("ProjectileCollide",Content.Load<SoundEffect>("SFXSounds/ProjectileCollide"));
+        Global.AddSFXSound("MeteorCollide",Content.Load<SoundEffect>("SFXSounds/MeteorCollide"));
+        Global.AddSFXSound("ShieldActivate",Content.Load<SoundEffect>("SFXSounds/ShieldActivate"));
+        Global.AddSFXSound("Timeout",Content.Load<SoundEffect>("SFXSounds/Timeout"));
+        Global.AddSFXSound("MenuMouseHover",Content.Load<SoundEffect>("SFXSounds/MenuMouseHover"));
         AtlasTexture2DManager.AddTexture2D(Content.Load<Texture2D>("AtlasTextures/GameAtlas"));
         Mouse.SetCursor(MouseCursor.FromTexture2D(Content.Load<Texture2D>("Cursor"),0,0));
         _gameMenu.LoadContent(Content);
