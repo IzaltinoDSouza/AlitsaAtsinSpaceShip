@@ -38,6 +38,19 @@ public class AlistaAtsinSpaceShip : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = false;
+        
+        //Set FullScreen with correct resolution supported
+        /*
+        _graphics.IsFullScreen = true;
+
+        GraphicsAdapter adapter = GraphicsAdapter.DefaultAdapter;
+        DisplayMode displayMode = adapter.CurrentDisplayMode;
+
+        _graphics.PreferredBackBufferWidth = displayMode.Width;
+        _graphics.PreferredBackBufferHeight = displayMode.Height;
+
+        _graphics.ApplyChanges();
+        */
     }
 
     protected override void Initialize()
