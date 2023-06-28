@@ -8,12 +8,14 @@ namespace AASS
     class Level01 : Level
     {
         private float _levelCountdownTime;
+        private Color _levelCountdownColor;
         private BackgroundScrollable _background;
         private CollisionHandler _collision;
         private Universe _universe;
         public override void Initialize(int level,SpaceShip alitsa,SpaceShip atsin)
         {
             _levelCountdownTime = 2*60;
+            _levelCountdownColor = Color.White;
             _background = new BackgroundScrollable(Vector2.Zero,50.0f);
             
             var tinyMeteorVariations = new List<Rectangle>();
@@ -46,6 +48,11 @@ namespace AASS
         {
             _universe.Update(gameTime);
             _levelCountdownTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(_levelCountdownTime <= 10.0f && _levelCountdownTime >= 0.1f)
+            {
+                Global.SFXSounds["Timeout"].Play();
+                _levelCountdownColor = Color.OrangeRed;
+            }
             if(_levelCountdownTime <= 0.0f) return false;
             return true;
         }
@@ -58,7 +65,7 @@ namespace AASS
                                    textCountdownTime,
                                    new Vector2((Global.ScreenWidth-textSizeCountdownTime.X)/2,
                                                textSizeCountdownTime.Y),
-                                   Color.White);
+                                   _levelCountdownColor);
         }
         private void CollisionActions(GameObject player)
         {
