@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace AASS
@@ -8,7 +10,7 @@ namespace AASS
         static public float ScreenHeight{get;private set;}
         static public Texture2D TextureDebug {get;private set;}
         static public SpriteFont DefaultFont {get;private set;}
-
+        static public Dictionary<string,SoundEffectInstance> SFXSounds{get;private set;}
         static public void SetScreenSize(float width,float height)
         {
             ScreenWidth  = width;
@@ -21,6 +23,11 @@ namespace AASS
         static public void SetDefaultFont(SpriteFont font)
         {
             DefaultFont = font;
+        }
+        static public void AddSFXSound(string name,SoundEffect sfxSound)
+        {
+            if(SFXSounds == null) SFXSounds = new Dictionary<string,SoundEffectInstance>();
+            SFXSounds.Add(name,sfxSound.CreateInstance());
         }
     }
 }

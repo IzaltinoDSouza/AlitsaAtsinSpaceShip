@@ -120,6 +120,42 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/DefaultNormal20.spritefont
 
+#begin SFXSounds/MenuMouseHover.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFXSounds/MenuMouseHover.ogg
+
+#begin SFXSounds/MeteorCollide.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFXSounds/MeteorCollide.ogg
+
+#begin SFXSounds/ProjectileCollide.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFXSounds/ProjectileCollide.ogg
+
+#begin SFXSounds/ProjectileShoot.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFXSounds/ProjectileShoot.ogg
+
+#begin SFXSounds/ShieldActivate.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFXSounds/ShieldActivate.ogg
+
+#begin SFXSounds/Timeout.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFXSounds/Timeout.ogg
+
 #begin TextureDebug.png
 /importer:TextureImporter
 /processor:TextureProcessor
